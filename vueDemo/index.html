@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        文本插值：{{表达式}}
+        指令directive:
+            条件渲染 v-if,v-else,v-else-if...
+            循环渲染 v-for='(元素,索引) in 数组'
+                数组
+                数字
+                对象
+            展示html字符串 v-html；
+            属性绑定 v-bind:属性名称 v-bind：可以简写：
+            事件绑定 v-on:事件名称；v-on：可以简写为@
+                    事件回调函数默认参数为event对象；
+                    也可以传递任意数，任意类型的参数
+                    既有自定义参数，也想使用默认event参数，就添加$event；
+                    事件
+        template：模板；是vue提供的一个虚表签，可以起到包裹元素的作用；渲染后，这个标签是不存在的
+     -->
+    <div id="app">
+        <h1>{{message}}</h1>
+        <p>{{time}}</p>
+        <p>{{message.toUpperCase()}}</p>
+        <p>{{1+12}}</p>
+        <p>{{'1'+12}}</p>
+        <p>{{10*12}}</p>
+        <p>{{10>1?'大于':'不大于'}}</p>
+        <p>{{Math.random()}}</p>
+        <p>{{3.1415926.toFixed(2)}}</p>
+        <p>{{age>=18?'成年':'未成年'}}</p>
+        <h2 v-if='age>18'>成年{{message}}</h2>
+        <h3 v-else-if='age>14'>青少年{{message}}</h3>
+        <h3 v-else>未成年{{message}}</h3>
+        <ul>
+            <li v-for='(n,index) in names'>{{index}}:{{n}}</li>
+        </ul>
+        <div v-for='n in news' v-bind:id='n.id'>
+            <p :id='n.id'>{{n.id}}</p>
+            <h2>{{n.title}}</h2>
+            <p>{{n.intro}}</p>
+        </div>
+        <!-- <p v-for='n in num'>{{n}}</p> -->
+        <p v-for='(value,key) in zhangSan'>{{key}}:{{value}}</p>
+        <section>{{htmlStr}}</section>
+        <section v-html='htmlStr'></section>
+        <img v-for='img in imgs' :src='img'>
+
+        <p title="message">这是一个段落</p>
+        <p :title="message">这是一个段落</p>
+
+        <button v-on:click='clickHandle'>按钮</button>
+        <button @click='clickHandle'>按钮2</button>
+        <button @click='clickHandle3(message)'>按钮3</button>
+        <button @click='clickHandle4(message,$event)'>按钮4</button>
+
+        <ul>
+            <li v-for='n in news' @click='click1(n.id)'>{{n.title}}</li>
+        </ul>
+        <!-- 
+            self:自身；只监听发生再自身上的事件，传递的事件监听不到；
+            prevent：阻止：阻止事件的默认行为
+            once：一次；事件绑定只生效一次
+            stop：停止；停止事件传播
+            capture：捕获；监听捕获阶段事件；不设置时，默认监听冒泡事件
+         -->
+        <button @click.self='clickBtn'>
+            按钮 <span>span里面</span>
+        </button>
+        <!-- 
+            enter：回车键；
+            left/right/up/down：左/右/上/下
+            esc：退出
+            space：空格
+            tab：制表符
+            delete：删除
+            可以自己用按钮的码值
+         -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        //通过script标签引入vue.js
+        //全局作用域下，会多一个变量 vue
+        console.log(Vue);
+        //新建vue对象
+        //参数是一个配置对象
+        //el:element,元素,取值是String类型的选择器或者HTMLElement类型的标签;指定一个已经存在的标签作为Vue实例的挂载目标
+        //data:数据，取值是对象类型或者function类型；设置vue视图中需要使用的数据
+        // methods:方法；定义的方法（函数）
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello world',
+                time: '2020-4-8 10:56:00',
+                age: 15,
+                names: ['张三', '李四', '王五', '马六'],
+                news: [
+                    {
+                        id: 1,
+                        title: '清明节 黄山',
+                        intro: '黄山人流量过大'
+                    },
+                    {
+                        id: 2,
+                        title: '清明节 黄山2',
+                        intro: '黄山人流量过大2'
+                    },
+                    {
+                        id: 3,
+                        title: '清明节 黄山3',
+                        intro: '黄山人流量过大3'
+                    }
+                ],
+                num:100,
+                zhangSan:{
+                    name:'张三',
+                    age:23,
+                    phone:'11111111111',
+                    address:'江苏省南京雨花台区'
+                },
+                htmlStr:'<div><p>这是一个段落</p><p><a herf="www.baidu.com">百度</a></p></div>',
+                imgs: [
+                    "http://contentcms-bj.cdn.bcebos.com/cmspic/0afcf5a50ed759a2ed0394172279ea62.jpeg?x-bce-process=image/crop,x_0,y_0,w_1024,h_557",
+                    "http://contentcms-bj.cdn.bcebos.com/cmspic/b17b98d05447b6183028b6fab24fb09e.jpeg?x-bce-process=image/crop,x_0,y_0,w_930,h_506",
+                    "http://contentcms-bj.cdn.bcebos.com/cmspic/3af6074d102a2ef8fe5c0102e639c457.jpeg?x-bce-process=image/crop,x_0,y_0,w_900,h_489"
+                ]
+
+            },
+            methods:{
+                clickHandle(event){
+                    console.log('按钮被点击了');
+                    console.log(arguments);
+                    console.log(event); 
+                },
+                clickHandle3(num){
+                    console.log(num);
+                    console.log(arguments);
+                },
+                clickHandle4(num){
+                    console.log(num);
+                    console.log(event);
+                },
+                click1(num){
+                    console.log(num);
+                },
+                clickBtn(){
+                    console.log('按钮被点击了');
+                    
+                }
+            },
+        });
+
+
+    </script>
+</body>
+
+</html>

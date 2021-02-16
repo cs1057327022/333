@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section{
+            width: 100px;
+            height: 100px;
+        }
+        .red{
+            background-color: red;
+        }
+        .blue{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{count}}</h1>
+        <button @click='add'>count++</button>
+
+        <section @click='col()' :class='color'></section>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // data中数据是响应式的，reactive
+        // 响应式：数据更新时，页面会自动更新
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                count:0,
+                color:'red',
+            },
+            methods:{
+                add(){
+                    //更新数据
+                    this.count ++;
+                },
+                col(){
+                    // if(this.color == 'red'){
+                    //     this.color = 'blue';
+                    // }else if(this.color == 'blue'){
+                    //     this.color = 'red';
+                    // }
+
+                    this.color = this.color=='red'?'blue':'red';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

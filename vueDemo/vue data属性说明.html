@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{count}}</h1>
+        <button @click='add'>count++</button>
+    </div>
+    <div id="app2">
+        <h1>{{count}}</h1>
+        <button @click='add'>count++</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // 如下写法：vm1和vm2的data属性取值是同一个对象，会互相影响
+        var data = {
+            count:0,
+        }
+        var vm1 = new Vue({
+            el:'#app',
+            data:data,
+            methods:{
+                add(){
+                    //更新数据
+                    this.count ++;
+                }
+            }
+        })
+        var vm2 = new Vue({
+            el:'#app2',
+            data:data,
+            methods:{
+                add(){
+                    //更新数据
+                    this.count ++;
+                }
+            }
+        })
+    </script>
+    <!-- 
+        知识点：
+            1.vue发展历史
+            2.vue 文本插值
+            3.vue 指令
+                v-if，v-else-if，v-else
+                v-for
+                v-bind  ：
+                v-on  @
+                    事件传参
+                    事件修饰符
+                v-html
+            4.vue 更新数据
+                data：响应式数据
+            5.基本类型赋值，对象类型赋值 区别
+
+        作业：
+            1.数据展示 以及 鼠标移入操作
+            2.点击小图，切换大图
+     -->
+</body>
+</html>

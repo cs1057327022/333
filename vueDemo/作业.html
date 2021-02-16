@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        .nav {
+            width: 668px;
+            height: 41px;
+            background-color: #009dd7;
+            margin: 0 auto;
+            line-height: 41px;
+            padding-left: 20px;
+            border: 1px solid black;
+        }
+        .body{
+            width: 668px;
+            height: auto;
+            margin: 0 auto;
+            line-height: 40px;
+            padding-left: 20px;
+            border: 1px solid black;
+        }
+        .s1{
+            display: none;
+            position: absolute;
+            right: 27.5%;
+            margin-top: 10px;
+        }
+        a{
+            display: block;
+            width: 669px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="nav">{{news.date}}</div>
+        <div class="body" v-for='(n,index) in news.stories'>
+                <a @mouseover='move(index)' @mouseout='clo(index)' href="#">{{n.title}}</a>
+                <img class="s1" :src="n.images">
+        </div>
+        
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                news: {
+                    "date": "20200408",
+                    "stories": [{
+                        "image_hue": "0xb3a27d",
+                        "title": "「冠姓权」是怎么来的？",
+                        "url": "https:\/\/daily.zhihu.com\/story\/9722526",
+                        "hint": "谢陆拾 · 2 分钟阅读",
+                        "ga_prefix": "040807",
+                        "images": ["https:\/\/pic4.zhimg.com\/v2-f00336849235dcedf3c8b457fdb761eb.jpg"],
+                        "type": 0,
+                        "id": 9722526
+                    }, {
+                        "image_hue": "0x412c26",
+                        "title": "周星驰与吴孟达关系如何？",
+                        "url": "https:\/\/daily.zhihu.com\/story\/9722533",
+                        "hint": "叉少 · 8 分钟阅读",
+                        "ga_prefix": "040807",
+                        "images": ["https:\/\/pic2.zhimg.com\/v2-07d7046ef25a00142bf1151f02b0f295.jpg"],
+                        "type": 0,
+                        "id": 9722533
+                    }, {
+                        "image_hue": "0x7d94b3",
+                        "title": "如何正确地游览故宫？",
+                        "url": "https:\/\/daily.zhihu.com\/story\/9722535",
+                        "hint": "刘元 · 6 分钟阅读",
+                        "ga_prefix": "040807",
+                        "images": ["https:\/\/pic3.zhimg.com\/v2-96d3d413cdff88bb81d18a9dea41bf36.jpg"],
+                        "type": 0,
+                        "id": 9722535
+                    }, {
+                        "image_hue": "0x6b7f99",
+                        "title": "美国高校是怎么做科研的？",
+                        "url": "https:\/\/daily.zhihu.com\/story\/9722543",
+                        "hint": "charles · 7 分钟阅读",
+                        "ga_prefix": "040807",
+                        "images": ["https:\/\/pic4.zhimg.com\/v2-75abae31d26f9fd56231a5e0eea909ef.jpg"],
+                        "type": 0,
+                        "id": 9722543
+                    }, {
+                        "image_hue": "0x827db3",
+                        "title": "大误 · 《三体》才是真正的预言故事",
+                        "url": "https:\/\/daily.zhihu.com\/story\/9722524",
+                        "hint": "老疯狗 · 13 分钟阅读",
+                        "ga_prefix": "040807",
+                        "images": ["https:\/\/pic4.zhimg.com\/v2-54786514053fc5102314bfd98b4f9dc7.jpg"],
+                        "type": 0,
+                        "id": 9722524
+                    }, {
+                        "image_hue": "0x1a2f37",
+                        "title": "瞎扯 · 如何正确地吐槽",
+                        "url": "https:\/\/daily.zhihu.com\/story\/9722509",
+                        "hint": "VOL.2369",
+                        "ga_prefix": "040806",
+                        "images": ["https:\/\/pic4.zhimg.com\/v2-a6d8af4a0a3b2332ebece37cc3359c8f.jpg"],
+                        "type": 0,
+                        "id": 9722509
+                    }]
+                }
+            },
+            methods: {
+               move(index){
+                    document.querySelectorAll('img')[index].style.display='block';
+                    document.querySelectorAll('img')[index].style.marginTop = '-20px';
+               },
+               clo(index){
+                    document.querySelectorAll('img')[index].style.display='none';
+               }
+            }
+        })
+    </script>
+</body>
+
+</html>

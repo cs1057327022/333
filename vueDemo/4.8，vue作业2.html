@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+#box{
+    width: 500px;
+    height: 500px;
+    margin: 100px auto;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+.b{
+    width: 360px;
+    height: 360px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+.b img{
+    width: 100%;
+    height: 100%;
+}
+.s{
+    width:600px;
+    height: 100px;
+    display: flex;
+    padding-left: 50px;
+}
+.s img{
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+}
+</style>
+<body>		
+    <div id="box">
+        <div class="b">
+            <div id="big" v-for = "(bimg,index) in bigimgs" @mouseover = "moveIn(index)" @mouseout = "moveOut(index)">
+                <img :src = "bimg">
+            </div>
+        </div>
+        <div class="s">
+            <div class="small" v-for = "(simg,index) in smallimgs" @mouseover = "moveIn(index)" @mouseout = "moveOut(index)">
+                <img :src = "simg">
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script src="js/vue.js"></script>
+
+    <script>
+         var vm = new Vue({
+            el:"#box",
+            data:{
+                bigimgs:[
+                    "img/big01.jpg","img/big02.jpg","img/big03.jpg","img/big04.jpg"
+                ],
+                smallimgs:[
+                    "img/small01.jpg","img/small02.jpg","img/small03.jpg","img/small04.jpg"
+                ]
+            },
+            methods:{
+                moveIn(index){
+                    document.querySelectorAll(".b img")[index].style.display = "block";
+                    
+                },
+                moveOut(index){
+                    document.querySelectorAll(".b img")[index].style.display = "none";
+                    document.querySelectorAll(".b img")[3].style.display = "block";
+                }
+                
+            }
+         });
+    </script>
+</body>
+</html>
